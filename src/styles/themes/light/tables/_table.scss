@@ -1,0 +1,30 @@
+.table {
+  width: 100%;
+  border-spacing: 0 2px;
+  thead > tr {
+    @extend .unnamed-character-style-1;
+    height: 56px;
+    th {
+      padding: 22px 26px;
+      text-align: left;
+    }
+  }
+  &--clickable tbody > tr {
+    @extend .unnamed-character-style-4;
+    @extend .clickable;
+    background: $color-f4f5f8 0% 0% no-repeat padding-box;
+    height: 56px;
+    &:hover {
+      background: $color-eff0f4 0% 0% no-repeat padding-box;
+    }
+    td {
+      padding: 22px 26px;
+    }
+  }
+
+  & &__tr {
+    &--active {
+      background: $color-eff0f4 0% 0% no-repeat padding-box;
+    }
+  }
+}

@@ -1,0 +1,22 @@
+.form-control {
+  width: 100%;
+  min-height: 46px;
+  outline: none;
+  border: 1px solid transparent;
+  background-color: $color-f3f6f9;
+  border-radius: 6px;
+  margin: 2px;
+  @extend .unnamed-character-style-5;
+  padding: 0 16px;
+  &[type="email"] {
+    padding-left: 47px;
+    background-image: url("/icons/alternate_email_black_24dp.png");
+    background-repeat: no-repeat;
+    background-position: 16px;
+    background-size: 25px;
+  }
+
+  &:invalid {
+    border: 1px solid $color-ef7da0;
+  }
+}

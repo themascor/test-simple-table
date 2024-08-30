@@ -1,0 +1,18 @@
+.toaster {
+  display: inline-block;
+  width: 281px;
+  border-radius: 6px;
+  padding: 22px 26px;
+  &__text {
+    @extend .unnamed-character-style-2;
+    text-align: left;
+  }
+  &--success {
+    background: $color-66bb6a 0% 0% no-repeat padding-box;
+    box-shadow: 0px 10px 15px #4caf505c;
+  }
+  &--error {
+    background: $color-ef7da0 0% 0% no-repeat padding-box;
+    box-shadow: 0px 10px 15px #ef7da05c;
+  }
+}

@@ -1,0 +1,9 @@
+@import "variables/colors";
+@import "variables/fonts";
+@import "toaster/toaster";
+@import "buttons/buttons";
+@import "tables/table";
+@import "forms/forms";
+body {
+  background-color: $color-eef0f8;
+}

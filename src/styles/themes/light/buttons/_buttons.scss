@@ -1,0 +1,19 @@
+.btn {
+  border: none;
+  min-width: 120px;
+  min-height: 46px;
+  border-radius: 6px;
+  cursor: pointer;
+  @extend .unnamed-character-style-7;
+  &:active {
+    transform: scale(0.98);
+  }
+  &--primary {
+    background: $color-2e8ff0 0% 0% no-repeat padding-box;
+    box-shadow: 0px 5px 8px #2e8ff029;
+  }
+  &--warning {
+    background: $color-f44682 0% 0% no-repeat padding-box;
+    box-shadow: 0px 5px 8px #f4468229;
+  }
+}

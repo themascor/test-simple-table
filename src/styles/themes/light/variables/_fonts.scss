@@ -1,0 +1,81 @@
+@import url("https://fonts.cdnfonts.com/css/helvetica-neue-55");
+/* Font/text values */
+$font-family-helvetica: "Helvetica Neue", sans-serif;
+$font-style-normal: normal;
+$font-weight-300: 300px;
+$font-weight-bold: bold;
+$font-weight-normal: normal;
+$font-size-13: 13px;
+$font-size-14: 14px;
+$font-size-16: 16px;
+$character-spacing-0: 0px;
+$line-spacing-16: 16px;
+$line-spacing-17: 17px;
+$line-spacing-19: 19px;
+$text-transform-uppercase: uppercase;
+
+/* Character Styles */
+.unnamed-character-style-1 {
+  font-family: $font-family-helvetica;
+  font-style: $font-style-normal;
+  font-weight: $font-weight-bold;
+  font-size: $font-size-13;
+  line-height: $line-spacing-16;
+  letter-spacing: $character-spacing-0;
+  color: $color-a4a4b5;
+  text-transform: $text-transform-uppercase;
+}
+.unnamed-character-style-2 {
+  font-family: $font-family-helvetica;
+  font-style: $font-style-normal;
+  font-weight: $font-weight-normal;
+  font-size: $font-size-13;
+  line-height: $line-spacing-16;
+  letter-spacing: $character-spacing-0;
+  color: $color-ffffff;
+}
+.unnamed-character-style-3 {
+  font-family: $font-family-helvetica;
+  font-style: $font-style-normal;
+  font-weight: $font-weight-normal;
+  font-size: $font-size-13;
+  line-height: $line-spacing-16;
+  letter-spacing: $character-spacing-0;
+  color: $color-ef7da0;
+}
+.unnamed-character-style-4 {
+  font-family: $font-family-helvetica;
+  font-style: $font-style-normal;
+  font-weight: $font-weight-300;
+  font-size: $font-size-13;
+  line-height: $line-spacing-16;
+  letter-spacing: $character-spacing-0;
+  color: $color-3f4254;
+}
+.unnamed-character-style-5 {
+  font-family: $font-family-helvetica;
+  font-style: $font-style-normal;
+  font-weight: $font-weight-normal;
+  font-size: $font-size-13;
+  line-height: $line-spacing-16;
+  letter-spacing: $character-spacing-0;
+  color: $color-3f4254;
+}
+.unnamed-character-style-6 {
+  font-family: $font-family-helvetica;
+  font-style: $font-style-normal;
+  font-weight: $font-weight-bold;
+  font-size: $font-size-16;
+  line-height: $line-spacing-19;
+  letter-spacing: $character-spacing-0;
+  color: $color-3f4254;
+}
+.unnamed-character-style-7 {
+  font-family: $font-family-helvetica;
+  font-style: $font-style-normal;
+  font-weight: $font-weight-normal;
+  font-size: $font-size-14;
+  line-height: $line-spacing-17;
+  letter-spacing: $character-spacing-0;
+  color: $color-ffffff;
+}
