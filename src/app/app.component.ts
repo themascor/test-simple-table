@@ -3,11 +3,17 @@ import { RouterOutlet } from '@angular/router';
 import { UserDataService } from './shared/user-data/user-data.service';
 import { UserDataTableComponent } from './shared/ui/user-data-table/user-data-table.component';
 import { AsyncPipe } from '@angular/common';
+import { UserDataFormComponent } from './shared/ui/user-data-form/user-data-form.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [UserDataTableComponent, RouterOutlet, AsyncPipe],
+  imports: [
+    UserDataTableComponent,
+    UserDataFormComponent,
+    RouterOutlet,
+    AsyncPipe,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

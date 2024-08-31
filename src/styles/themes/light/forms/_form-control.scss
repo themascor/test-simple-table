@@ -1,12 +1,12 @@
 .form-control {
+  @extend .unnamed-character-style-5;
+  box-sizing: border-box;
   width: 100%;
   min-height: 46px;
   outline: none;
   border: 1px solid transparent;
   background-color: $color-f3f6f9;
   border-radius: 6px;
-  margin: 2px;
-  @extend .unnamed-character-style-5;
   padding: 0 16px;
   &[type="email"] {
     padding-left: 47px;
