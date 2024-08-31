@@ -1,54 +1,181 @@
 <div class="container">
   <div class="top-panel">
-    <div class="top-panel__titile form-title">Create new user</div>
+    <div class="top-panel__titile form-title">
+      @if (isItNewUser()) {
+      <span>Create new user</span>
+      } @else {
+      <span>{{ model.first_name + " " + model.last_name }}</span>
+      }
+    </div>
     <div class="top-panel__controls">
-      <div class="icon-close clickable"></div>
+      <div class="icon-close clickable" (click)="close()"></div>
     </div>
   </div>
-  <div class="form-control-field">
-    <label class="form-label">Username*</label>
-    <input class="form-control" type="text" />
-  </div>
-  <div class="form-control-field">
-    <label class="form-label">First name*</label>
-    <input class="form-control" type="text" />
-  </div>
+  <form #userForm="ngForm" autocomplete="off">
+    <!-- <pre> {{ model | json }}</pre> -->
 
-  <div class="form-control-field">
-    <label class="form-label">Last name*</label>
-    <input class="form-control" type="text" />
-  </div>
+    <div class="form-control-field">
+      <label class="form-label">Username*</label>
+      <input
+        #username="ngModel"
+        class="form-control"
+        type="text"
+        [(ngModel)]="model.username"
+        name="username"
+        required
+        appServerValidatorFor="username"
+      />
+      <ng-container
+        [ngTemplateOutlet]="validationMessages"
+        [ngTemplateOutletContext]="{ control: username }"
+      >
+      </ng-container>
+    </div>
 
-  <div class="form-control-field">
-    <label class="form-label">Email*</label>
-    <input class="form-control" type="email" />
-  </div>
+    <div class="form-control-field">
+      <label class="form-label">First name*</label>
+      <input
+        #first_name="ngModel"
+        class="form-control"
+        type="text"
+        [(ngModel)]="model.first_name"
+        name="first_name"
+        required
+        appServerValidatorFor="first_name"
+      />
+      <ng-container
+        [ngTemplateOutlet]="validationMessages"
+        [ngTemplateOutletContext]="{ control: first_name }"
+      >
+      </ng-container>
+    </div>
 
-  <div class="form-control-field">
-    <label class="form-label">Type*</label>
-    <select class="form-control">
-      <option value="0">Select car:</option>
-      <option value="1">Audi</option>
-      <option value="2">BMW</option>
-    </select>
-  </div>
+    <div class="form-control-field">
+      <label class="form-label">Last name*</label>
+      <input
+        #last_name="ngModel"
+        class="form-control"
+        type="text"
+        [(ngModel)]="model.last_name"
+        name="last_name"
+        required
+        appServerValidatorFor="last_name"
+      />
+      <ng-container
+        [ngTemplateOutlet]="validationMessages"
+        [ngTemplateOutletContext]="{ control: last_name }"
+      >
+      </ng-container>
+    </div>
 
-  <div class="form-control-field">
-    <label class="form-label">Password*</label>
-    <input class="form-control" type="text" />
-  </div>
+    <div class="form-control-field">
+      <label class="form-label">Email*</label>
+      <input
+        #email="ngModel"
+        class="form-control"
+        type="email"
+        [(ngModel)]="model.email"
+        name="email"
+        required
+        email
+        appServerValidatorFor="email"
+      />
+      <ng-container
+        [ngTemplateOutlet]="validationMessages"
+        [ngTemplateOutletContext]="{ control: email }"
+      >
+      </ng-container>
+    </div>
 
-  <div class="form-control-field">
-    <label class="form-label">Repeat password*</label>
-    <input class="form-control" type="text" />
-  </div>
+    <div class="form-control-field">
+      <label class="form-label">Type*</label>
+      <select
+        #user_type="ngModel"
+        class="form-control"
+        [(ngModel)]="model.user_type"
+        name="user_type"
+        required
+        appServerValidatorFor="user_type"
+      >
+        @for (type of userTypes(); track type) {
+        <option [value]="type">{{ type }}</option>
+        }
+      </select>
+      <ng-container
+        [ngTemplateOutlet]="validationMessages"
+        [ngTemplateOutletContext]="{ control: user_type }"
+      >
+      </ng-container>
+    </div>
+
+    <div class="form-control-field">
+      <label class="form-label">Password*</label>
+      <input
+        #password="ngModel"
+        class="form-control"
+        type="password"
+        [(ngModel)]="model.password"
+        name="password"
+        autocomplete="new-password"
+        appStrongPasswordValidator
+        required
+        appServerValidatorFor="password"
+      />
+      <ng-container
+        [ngTemplateOutlet]="validationMessages"
+        [ngTemplateOutletContext]="{ control: password }"
+      >
+      </ng-container>
+    </div>
+
+    <div class="form-control-field">
+      <label class="form-label">Repeat password*</label>
+      <input
+        #rePassword="ngModel"
+        class="form-control"
+        type="password"
+        [(ngModel)]="model.rePassword"
+        name="rePassword"
+        [appMatchValueValidator]="model.password"
+        autocomplete="new-password"
+        required
+        appServerValidatorFor="rePassword"
+      />
+      <ng-container
+        [ngTemplateOutlet]="validationMessages"
+        [ngTemplateOutletContext]="{ control: rePassword }"
+      >
+      </ng-container>
+    </div>
+  </form>
   <div class="bottom-panel">
+    @if (isItNewUser()) {
     <div class="bottom-panel--center">
-      <button class="btn btn--primary">Save</button>
+      <button
+        class="btn btn--primary"
+        [disabled]="userForm.invalid"
+        (click)="create()"
+      >
+        Create
+      </button>
     </div>
+    } @else {
     <div class="bottom-panel--between">
-      <button class="btn btn--warning">Delete</button>
-      <button class="btn btn--primary">Create</button>
+      <button class="btn btn--warning" (click)="delete()">Delete</button>
+      <button
+        class="btn btn--primary"
+        [disabled]="userForm.invalid || userForm.untouched"
+        (click)="save()"
+      >
+        Save
+      </button>
     </div>
+    }
   </div>
 </div>
+
+<ng-template #validationMessages let-control="control">
+  <span class="validation-message" *ngIf="control.errors && control.touched">
+    {{ control?.errors | appValidationMessages }}
+  </span>
+</ng-template>

@@ -16,7 +16,7 @@
     background-size: 25px;
   }
 
-  &:invalid {
+  &.ng-touched.ng-invalid {
     border: 1px solid $color-ef7da0;
   }
 }

@@ -1,11 +1,15 @@
 .btn {
+  @extend .unnamed-character-style-7;
   border: none;
   min-width: 120px;
   min-height: 46px;
   border-radius: 6px;
   cursor: pointer;
-  @extend .unnamed-character-style-7;
-  &:active {
+  &:disabled {
+    cursor: auto;
+    opacity: 0.75;
+  }
+  &:active:not([disabled]) {
     transform: scale(0.98);
   }
   &--primary {
