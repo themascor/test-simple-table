@@ -29,8 +29,9 @@ import { User } from '../../data/user-data/types/user.type';
       <tbody>
         @for (user of list(); track user.username) {
         <tr
-        (click)="select(user)" 
-        [class.table__tr--active]="user.username === active()?.username">
+          (click)="select(user)"
+          [class.table__tr--active]="user.username === active()?.username"
+        >
           <td>{{ user.username }}</td>
           <td>{{ user.first_name }}</td>
           <td>{{ user.last_name }}</td>
@@ -48,9 +49,8 @@ export class UserDataTableComponent {
   list = input.required<User[] | null>();
   activeChange = output<User | null>();
   active = input.required<User | null>();
-  constructor() {
-  }
+  constructor() {}
   select(user: User) {
-    this.activeChange.emit(user)
+    this.activeChange.emit(user);
   }
 }

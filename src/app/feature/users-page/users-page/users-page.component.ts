@@ -57,7 +57,6 @@ import { UserDataTableComponent } from '../../../shared/ui/user-data-table/user-
 })
 export class UsersPageComponent implements OnInit, OnDestroy {
   public readonly userData = inject(UserDataService);
-  title = 'test-simple-table';
   activeUser = signal<User | null>(null);
   openForm = signal<boolean>(false);
   usersTable = signal<User[]>([]);
@@ -66,6 +65,10 @@ export class UsersPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.reloadTable();
+  }
+  ngOnDestroy(): void {
+    this.destroy.next();
+    this.destroy.complete();
   }
   closeForm(isUpdated: boolean) {
     this.openForm.set(false);
@@ -88,10 +91,6 @@ export class UsersPageComponent implements OnInit, OnDestroy {
   }
   atDisableChange(isDisabled: boolean) {
     this.disabled.set(isDisabled);
-  }
-  ngOnDestroy(): void {
-    this.destroy.next();
-    this.destroy.complete();
   }
   private reloadTable() {
     this.userData
