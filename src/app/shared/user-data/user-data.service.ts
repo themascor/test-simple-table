@@ -21,7 +21,7 @@ export class UserDataService {
       this.usersTable[user.username] = { ...user };
       return of(true);
     } else {
-      return throwError(() => ({ username: 'Cant find the user' }));
+      return throwError(() => ({ username: [`Cant find the user: ${user.username}`] }));
     }
   }
   delete(user: User): Observable<boolean> {
@@ -30,14 +30,14 @@ export class UserDataService {
       delete this.usersTable[user.username];
       return of(true);
     } else {
-      return throwError(() => ({ username: 'Cant find the user' }));
+      return throwError(() => ({ username: ['Cant find the user'] }));
     }
   }
 
   create(user: User): Observable<boolean> {
     const isUserInTable = Object.prototype.hasOwnProperty.call(this.usersTable, user.username);
     if (isUserInTable) {
-      return throwError(() => ({ username: 'The user already exist' }));
+      return throwError(() => ({ username: ['Can not use this name'] }));
     } else {
       this.usersTable[user.username] = { ...user };
       return of(true);

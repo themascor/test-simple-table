@@ -24,7 +24,7 @@ export class StrongPasswordValidatorDirective implements Validator {
   validate(control: AbstractControl): ValidationErrors | null {
     const pwd = control.value;
     const messages: string[] = [];
-    !this.checkLength(pwd) && messages.push('Password is not long enough');
+    !this.checkLength(pwd) && messages.push(`Password is not long enough (${this.minLength} characters minimum)`);
     !this.checkContent(pwd) &&
       messages.push(
         'Password should contain at least one number and one letter'

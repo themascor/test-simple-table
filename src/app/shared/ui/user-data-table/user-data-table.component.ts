@@ -47,11 +47,10 @@ import { User } from '../../user-data/types/user.type';
 export class UserDataTableComponent {
   list = input.required<User[] | null>();
   activeChange = output<User | null>();
-  active: WritableSignal<User | null> = signal<User | null>(null);
+  active = input.required<User | null>();
   constructor() {
-    effect(() => this.activeChange.emit(this.active()));
   }
   select(user: User) {
-    this.active.set(user);
+    this.activeChange.emit(user)
   }
 }

@@ -7,6 +7,7 @@ import {
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   computed,
   effect,
@@ -15,6 +16,7 @@ import {
   OnDestroy,
   output,
   signal,
+  ViewChild,
   WritableSignal,
 } from '@angular/core';
 import { User, UserType } from '../../user-data/types/user.type';
@@ -29,7 +31,8 @@ import {
 import { ServerValidatorService } from './services/server-validator.service';
 import { ValidationMessagesPipe } from './pipes/validation-messages.pipe';
 import { UserDataService } from '../../user-data/user-data.service';
-import { Observable, Subject } from 'rxjs';
+import { delay, Observable, Subject } from 'rxjs';
+import { ServerValidatorDirective } from './validators/server-validator.directive';
 
 @Component({
   selector: 'app-user-data-form',
@@ -43,6 +46,7 @@ import { Observable, Subject } from 'rxjs';
     StrongPasswordValidatorDirective,
     MatchValueValidatorDirective,
     ValidationMessagesPipe,
+    ServerValidatorDirective,
   ],
   providers: [
     {
@@ -55,11 +59,15 @@ import { Observable, Subject } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserDataFormComponent implements OnDestroy {
-  public closed = output<boolean>();
-  public user = input<User | null>(null);
-  private userDataService = inject(UserDataService);
-  private serverValidatorService = inject(SERVER_VALIDATION_TOKEN);
+  @ViewChild('userForm') form: any;
+
+  public readonly closed = output<boolean>();
+  public readonly disabledChange = output<boolean>();
+  public readonly user = input<User | null>(null);
+  private readonly userDataService = inject(UserDataService);
+  private readonly serverValidatorService = inject(SERVER_VALIDATION_TOKEN);
   public readonly isItNewUser = computed(() => !this.user());
+  public readonly disabled = signal(false);
   private readonly emptyModel: UserFormType = {
     username: '',
     first_name: '',
@@ -75,11 +83,19 @@ export class UserDataFormComponent implements OnDestroy {
   ]);
   public model: UserFormType = { ...this.emptyModel };
   private destroy = new Subject<void>();
-  constructor() {
+  constructor(private readonly cd: ChangeDetectorRef) {
     effect(() => {
-      this.model = this.isItNewUser()
-        ? { ...this.emptyModel }
-        : { ...this.emptyModel, ...this.user() };
+      this.form?.reset();
+      this.model =
+        this.user() === null
+          ? { ...this.emptyModel }
+          : this.userFormAdapter(this.user());
+      // Fix selector issue after update the model
+      this.form?.controls['user_type'].setValue(this.model.user_type);
+      this.cd.detectChanges();
+    });
+    effect(() => {
+      this.disabledChange.emit(this.disabled());
     });
   }
   ngOnDestroy(): void {
@@ -105,6 +121,9 @@ export class UserDataFormComponent implements OnDestroy {
   }
 
   public close(): void {
+    if (this.disabled()) {
+      return;
+    }
     this.closed.emit(false);
   }
   private userAdapter(userForm: UserFormType): User {
@@ -113,11 +132,16 @@ export class UserDataFormComponent implements OnDestroy {
     return user;
   }
 
+  private userFormAdapter(user: User | null): UserFormType {
+    const userForm = { ...this.emptyModel, ...this.user() };
+    userForm.rePassword = user?.password || this.emptyModel.rePassword;
+    return userForm;
+  }
+
   private handleRequest(req: Observable<boolean>): void {
     this.lockInterface();
     req.subscribe({
       next: (result) => {
-        console.log("🚀 ~ UserDataFormComponent ~ handleRequest ~ result:", result)
         this.unlockInterface();
         this.serverErrorsHandler(null);
         if (result) {
@@ -125,7 +149,6 @@ export class UserDataFormComponent implements OnDestroy {
         }
       },
       error: (error) => {
-        console.log("🚀 ~ UserDataFormComponent ~ handleRequest ~ error:", error)
         this.unlockInterface();
         this.serverErrorsHandler(error);
       },
@@ -139,6 +162,10 @@ export class UserDataFormComponent implements OnDestroy {
   private serverErrorsHandler(errors: ServerValidationErrors | null): void {
     this.serverValidatorService.setErrors(errors);
   }
-  private lockInterface(): void {}
-  private unlockInterface(): void {}
+  private lockInterface(): void {
+    this.disabled.set(true);
+  }
+  private unlockInterface(): void {
+    this.disabled.set(false);
+  }
 }

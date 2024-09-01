@@ -4,20 +4,20 @@
     <div class="content-container">
       <div class="panel">
         <div class="panel__left">
-          <button class="btn btn--primary">Create User</button>
+          <button class="btn btn--primary" (click)="create()" [disabled]="disabled()">Create User</button>
         </div>
         <div class="panel__right"></div>
       </div>
       <div class="panel">
         <div class="panel__left">
           <div class="card list-section">
-            <app-user-data-table [list]="userData.getFullList() | async">
+            <app-user-data-table (activeChange)="changeUser($event)" [list]="usersTable()" [active]="activeUser()">
             </app-user-data-table>
           </div>
         </div>
         <div class="panel__right">
-          <div class="card form-section">
-            <app-user-data-form></app-user-data-form>
+          <div class="card form-section" *ngIf="openForm()">
+            <app-user-data-form (closed)="closeForm($event)" [user]="activeUser()" (disabledChange)="atDisableChange($event)" ></app-user-data-form>
           </div>
         </div>
       </div>
