@@ -1,4 +1,4 @@
-#### Errors emulation: Crate 2 users with same username
+#### Errors emulation: Create 2 users with same username
 
 #### 403 Emulation: Put to console localStorage.setItem('token', 'false');
 
