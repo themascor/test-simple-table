@@ -1,10 +1,16 @@
 :host {
   display: block;
 }
-.toaster {
+.toaster-container {
   box-sizing: border-box;
-  position: sticky;
+  top: 0;
+  left: 0;
+  position: fixed;
   display: flex;
   width: 100%;
   justify-content: space-between;
+  &__left,
+  &__right {
+    max-width: min(100%, 300px);
+  }
 }

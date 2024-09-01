@@ -15,8 +15,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   standalone: true,
   imports: [NgFor, AsyncPipe, NgTemplateOutlet],
   template: `
-    <div class="toaster">
-      <div>
+    <div class="toaster-container">
+      <div class="toaster-container__left">
         <ng-container
           [ngTemplateOutlet]="order"
           [ngTemplateOutletContext]="{
@@ -24,7 +24,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
           }"
         ></ng-container>
       </div>
-      <div>
+      <div class="toaster-container__right">
         <ng-container
           [ngTemplateOutlet]="order"
           [ngTemplateOutletContext]="{
