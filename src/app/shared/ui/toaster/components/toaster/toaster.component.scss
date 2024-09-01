@@ -11,6 +11,7 @@
   justify-content: space-between;
   &__left,
   &__right {
-    max-width: min(100%, 300px);
+    max-width: min(100%, 500px);
+    box-sizing: border-box;
   }
 }
