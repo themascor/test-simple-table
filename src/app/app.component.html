@@ -3,27 +3,7 @@
     <app-toaster></app-toaster>
   </header>
   <main class="grid-container__main">
-    <div class="content-container">
-      <div class="panel">
-        <div class="panel__left">
-          <button class="btn btn--primary" (click)="create()" [disabled]="disabled()">Create User</button>
-        </div>
-        <div class="panel__right"></div>
-      </div>
-      <div class="panel">
-        <div class="panel__left">
-          <div class="card list-section">
-            <app-user-data-table (activeChange)="changeUser($event)" [list]="usersTable()" [active]="activeUser()">
-            </app-user-data-table>
-          </div>
-        </div>
-        <div class="panel__right">
-          <div class="card form-section" *ngIf="openForm()">
-            <app-user-data-form (closed)="closeForm($event)" [user]="activeUser()" (disabledChange)="atDisableChange($event)" ></app-user-data-form>
-          </div>
-        </div>
-      </div>
-    </div>
+  <router-outlet></router-outlet> 
   </main>
   <footer class="grid-container__footer"></footer>
 </div>

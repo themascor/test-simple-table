@@ -8,7 +8,7 @@ import {
   signal,
   WritableSignal,
 } from '@angular/core';
-import { User } from '../../user-data/types/user.type';
+import { User } from '../../data/user-data/types/user.type';
 
 @Component({
   selector: 'app-user-data-table',

@@ -1,27 +1,27 @@
-# TestSimpleTable
+#### Errors emulation: Crate 2 users with same username
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.0.
+#### 403 Emulation: Put to console localStorage.setItem('token', 'false');
 
-## Development server
+## Conditions: Create Angular application. Without server side. (Just emulate it) User list page
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- User view page
+- Should have fallback pages for 404 and 403 errors.
+- User can be created/updated/deleted through the interface.
+- In css class naming will be good if you use BEM (would be plus).
+- Don't use any css frameworks, just your own css code and markup.
+- Implement custom directive for user form validation (check and display validation errors).
+- Implement a service for sending and receiving data from the server. Just emulate it - save data
+  locally.
+- Form validation.
+- Form can display server side errors.
 
-## Code scaffolding
+User fields. All required:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- username (unique)
+- first_name
+- last_name
+- email (valid email address.)
+- password (min length 8. at least one number and one letter )
+- user_type ("Admin", "Driver')
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+  #### Design for this task https://xd.adobe.com/view/47ceae08-f089-431b-bd2f-a02a7045806f-129d/

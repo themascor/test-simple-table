@@ -19,7 +19,7 @@ import {
   ViewChild,
   WritableSignal,
 } from '@angular/core';
-import { User, UserType } from '../../user-data/types/user.type';
+import { User, UserType } from '../../data/user-data/types/user.type';
 import { FormsModule } from '@angular/forms';
 import { UserFormType } from './types/user-form.type';
 import { StrongPasswordValidatorDirective } from './validators/strong-password-validator.directive';
@@ -30,11 +30,11 @@ import {
 } from './validators/user-server-validator/server-validation-token.type';
 import { ServerValidatorService } from './services/server-validator.service';
 import { ValidationMessagesPipe } from './pipes/validation-messages.pipe';
-import { UserDataService } from '../../user-data/user-data.service';
+import { UserDataService } from '../../data/user-data/user-data.service';
 import { delay, Observable, Subject } from 'rxjs';
 import { ServerValidatorDirective } from './validators/server-validator.directive';
-import { ToasterService } from '../tosater/service/toaster.service';
-import { ToastType } from '../tosater/types/toast.type';
+import { ToasterService } from '../toaster/service/toaster.service';
+import { ToastType } from '../toaster/types/toast.type';
 
 @Component({
   selector: 'app-user-data-form',

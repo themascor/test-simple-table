@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { SERVER_VALIDATION_TOKEN } from './user-server-validator/server-validation-token.type';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { User } from '../../../user-data/types/user.type';
+import { User } from '../../../data/user-data/types/user.type';
 import { tap } from 'rxjs';
 
 @Directive({
