@@ -6,6 +6,7 @@ import { AsyncPipe, NgIf } from '@angular/common';
 import { UserDataFormComponent } from './shared/ui/user-data-form/user-data-form.component';
 import { User } from './shared/user-data/types/user.type';
 import { Subject } from 'rxjs';
+import { ToasterComponent } from './shared/ui/tosater/components/toaster/toaster.component';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,7 @@ import { Subject } from 'rxjs';
     UserDataFormComponent,
     RouterOutlet,
     AsyncPipe,
+    ToasterComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

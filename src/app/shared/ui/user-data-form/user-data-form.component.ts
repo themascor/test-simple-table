@@ -33,6 +33,8 @@ import { ValidationMessagesPipe } from './pipes/validation-messages.pipe';
 import { UserDataService } from '../../user-data/user-data.service';
 import { delay, Observable, Subject } from 'rxjs';
 import { ServerValidatorDirective } from './validators/server-validator.directive';
+import { ToasterService } from '../tosater/service/toaster.service';
+import { ToastType } from '../tosater/types/toast.type';
 
 @Component({
   selector: 'app-user-data-form',
@@ -60,12 +62,12 @@ import { ServerValidatorDirective } from './validators/server-validator.directiv
 })
 export class UserDataFormComponent implements OnDestroy {
   @ViewChild('userForm') form: any;
-
   public readonly closed = output<boolean>();
   public readonly disabledChange = output<boolean>();
   public readonly user = input<User | null>(null);
   private readonly userDataService = inject(UserDataService);
   private readonly serverValidatorService = inject(SERVER_VALIDATION_TOKEN);
+  private readonly toaster = inject(ToasterService);
   public readonly isItNewUser = computed(() => !this.user());
   public readonly disabled = signal(false);
   private readonly emptyModel: UserFormType = {
@@ -104,19 +106,25 @@ export class UserDataFormComponent implements OnDestroy {
   }
   public create(): void {
     this.handleRequest(
-      this.userDataService.create(this.userAdapter(this.model))
+      this.userDataService.create(this.userAdapter(this.model)),
+      'User crated successfully',
+      'Can not crate the user'
     );
   }
 
   public delete(): void {
     this.handleRequest(
-      this.userDataService.delete(this.userAdapter(this.model))
+      this.userDataService.delete(this.userAdapter(this.model)),
+      'User deleted successfully',
+      'Can not delete the user'
     );
   }
 
   public save(): void {
     this.handleRequest(
-      this.userDataService.update(this.userAdapter(this.model))
+      this.userDataService.update(this.userAdapter(this.model)),
+      'User updated successfully',
+      'Can not update the user'
     );
   }
 
@@ -138,7 +146,11 @@ export class UserDataFormComponent implements OnDestroy {
     return userForm;
   }
 
-  private handleRequest(req: Observable<boolean>): void {
+  private handleRequest(
+    req: Observable<boolean>,
+    successMessage: string,
+    errorMessage: string
+  ): void {
     this.lockInterface();
     req.subscribe({
       next: (result) => {
@@ -147,10 +159,12 @@ export class UserDataFormComponent implements OnDestroy {
         if (result) {
           this.closed.emit(true);
         }
+        this.toaster.toast(ToastType.SUCCESS, successMessage);
       },
       error: (error) => {
         this.unlockInterface();
         this.serverErrorsHandler(error);
+        this.toaster.toast(ToastType.ERROR, errorMessage);
       },
       complete: () => {
         this.unlockInterface();

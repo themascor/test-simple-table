@@ -1,0 +1,10 @@
+:host {
+  display: block;
+}
+.toaster {
+  box-sizing: border-box;
+  position: sticky;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
