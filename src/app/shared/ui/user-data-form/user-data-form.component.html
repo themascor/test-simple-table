@@ -178,7 +178,7 @@
       </button>
       <button
         class="btn btn--primary"
-        [disabled]="userForm.invalid || userForm.untouched || disabled()"
+        [disabled]="userForm.invalid || !userForm.dirty || disabled()"
         (click)="save()"
       >
         Save
