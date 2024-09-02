@@ -31,7 +31,7 @@ import {
 import { ServerValidatorService } from './services/server-validator.service';
 import { ValidationMessagesPipe } from './pipes/validation-messages.pipe';
 import { UserDataService } from '../../data/user-data/user-data.service';
-import { delay, Observable, Subject } from 'rxjs';
+import { delay, Observable, Subject, takeUntil } from 'rxjs';
 import { ServerValidatorDirective } from './validators/server-validator.directive';
 import { ToasterService } from '../toaster/service/toaster.service';
 import { ToastType } from '../toaster/types/toast.type';
@@ -152,7 +152,7 @@ export class UserDataFormComponent implements OnDestroy {
     errorMessage: string
   ): void {
     this.lockInterface();
-    req.subscribe({
+    req.pipe(takeUntil(this.destroy)).subscribe({
       next: (result) => {
         this.unlockInterface();
         this.serverErrorsHandler(null);
