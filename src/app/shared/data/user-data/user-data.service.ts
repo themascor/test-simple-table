@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
+import { delay, Observable, of, throwError } from 'rxjs';
 import { mockUsers } from './mocked-list';
 import { User } from './types/user.type';
 
@@ -7,6 +7,7 @@ import { User } from './types/user.type';
   providedIn: 'root',
 })
 export class UserDataService {
+  private netWorkDelay = 1500;
   private readonly usersTable: { [userName in string]: User } = mockUsers
     .slice()
     .reduce((acc, user) => ({ ...acc, [user.username]: user }), {});
@@ -19,7 +20,7 @@ export class UserDataService {
     const isUserInTable = Object.prototype.hasOwnProperty.call(this.usersTable, user.username);
     if (isUserInTable) {
       this.usersTable[user.username] = { ...user };
-      return of(true);
+      return of(true).pipe(delay(this.netWorkDelay));
     } else {
       return throwError(() => ({ username: [`Cant find the user: ${user.username}`] }));
     }
@@ -40,7 +41,7 @@ export class UserDataService {
       return throwError(() => ({ username: ['Can not use this name'] }));
     } else {
       this.usersTable[user.username] = { ...user };
-      return of(true);
+      return of(true).pipe(delay(this.netWorkDelay));
     }
   }
 }
