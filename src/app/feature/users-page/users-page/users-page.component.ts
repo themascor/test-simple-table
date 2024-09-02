@@ -7,7 +7,7 @@ import {
   signal,
   inject,
 } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { User } from '../../../shared/data/user-data/types/user.type';
 import { UserDataService } from '../../../shared/data/user-data/user-data.service';
 import { UserDataFormComponent } from '../../../shared/ui/user-data-form/user-data-form.component';
@@ -95,6 +95,7 @@ export class UsersPageComponent implements OnInit, OnDestroy {
   private reloadTable() {
     this.userData
       .getFullList()
+      .pipe(takeUntil(this.destroy))
       .subscribe((list) => this.usersTable.set(list || []));
   }
 }
